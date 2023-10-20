@@ -2,6 +2,21 @@ version: '3'
 
 services:
 
+  db:
+    image: mysql:5.7
+    container_name: db
+    tty: true
+    restart: always
+    command: --innodb-use-native-aio=0 #for windows
+    volumes: 
+      - ./setup.sql:/docker-entrypoint-initdb.d/setup.sql
+      - ./mysql:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=nodedb
+      - MYSQL_ROOT_PASSWORD=root
+    networks:
+      - node
+
   app:
     container_name: app
     tty: true
@@ -11,6 +26,8 @@ services:
       - node
     volumes:
       - ./node:/usr/src/app
+    depends_on:
+      - db
 
   nginx:
     container_name: nginx
@@ -21,8 +38,12 @@ services:
       - node
     ports:
       - "8080:80"
+    depends_on:
+      - app
 
 networks:
 
   node:
     driver: bridge
+
+# mysql -uroot -p

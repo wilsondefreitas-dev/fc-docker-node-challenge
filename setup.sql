@@ -1,0 +1,2 @@
+use nodedb;
+CREATE TABLE IF NOT EXISTS names(name VARCHAR(50) NOT NULL);
