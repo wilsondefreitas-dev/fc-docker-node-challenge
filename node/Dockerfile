@@ -4,4 +4,7 @@ WORKDIR /usr/src/app
 
 COPY . .
 
-# docker run -d --rm -it --name node -p 3030:3030 wilsondef/node node index.js 
+# EXPOSE 3030
+
+# docker build -t wilsondef/node ./node   
+# docker run -d --rm -it --name node -p 3030:3030 --network node wilsondef/node node index.js 
