@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+
+  app:
+    container_name: app
+    tty: true
+    build:
+      context: ./node
+    networks:
+      - node
+    volumes:
+      - ./node:/usr/src/app
+
+  nginx:
+    container_name: nginx
+    tty: true
+    build:
+      context: ./nginx
+    networks: 
+      - node
+    ports:
+      - "8080:80"
+
+networks:
+
+  node:
+    driver: bridge

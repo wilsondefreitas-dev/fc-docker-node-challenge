@@ -4,7 +4,7 @@ WORKDIR /usr/src/app
 
 COPY . .
 
-CMD [ "node", "index.js" ]
+CMD [ "node", "--watch", "index.js" ]
 
 # docker build -t wilsondef/node ./node   
 # docker run -d --rm -it --name node --network node wilsondef/node
